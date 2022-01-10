@@ -5,7 +5,7 @@ on: [push]
 jobs: 
   run-shell-command:
     runs_on: ubuntu_latest 
-    step:
+    steps:
       - name: echo a string
         run: echo "hi vinay"
       -name: multi line script
