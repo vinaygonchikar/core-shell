@@ -4,7 +4,7 @@ on: [push]
 
 jobs: 
   run-shell-command:
-    runs_on: ubuntu_latest 
+    runs-on: ubuntu_latest 
     steps:
       - name: echo a string
         run: echo "hi vinay"
