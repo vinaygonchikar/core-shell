@@ -1,0 +1,7 @@
+name: shell commands
+
+on: [push]
+
+jobs: 
+  run-shell-command:
+    runs_on: ubun
