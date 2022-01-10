@@ -4,4 +4,11 @@ on: [push]
 
 jobs: 
   run-shell-command:
-    runs_on: ubun
+    runs_on: ubuntu_latest 
+    step:
+      - name: echo a string
+        run: echo "hi vinay"
+      -name: multi line script
+       run: |
+          node -v
+          npm -v
