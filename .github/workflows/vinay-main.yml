@@ -24,3 +24,20 @@ jobs:
  
       - name: checking java version 
         run: java -version 
+        
+         
+      - name: checking java version 
+        run: cd account-service
+        
+      - name: present working directory 
+        run: pwd        
+        
+      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+            service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
+            project_id: ${{ secrets.PROJECT_ID }}
+            export_default_credentials: true
+            
+      - name: Image
+        run: |-
+          docker build --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} -t eu.gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
