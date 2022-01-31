@@ -1,9 +1,12 @@
 
-name: feature branch  CI with maven
+name: CI-build & push to GCR on chnages to develop & feature branch
 
 on:
   push:
-    branches: [ master ]
+    branches:
+    - develop
+    - feature/*
+    
 
 jobs:
   build-java:
@@ -32,12 +35,4 @@ jobs:
       - name: present working directory 
         run: pwd        
         
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-        with:
-            service_account_key: ${{ secrets.GCR_DEVOPS_SERVICE_ACCOUNT_KEY }}
-            project_id: ${{ secrets.PROJECT_ID }}
-            export_default_credentials: true
-            
-      - name: Image
-        run: |-
-          docker build --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} -t eu.gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
+ 
