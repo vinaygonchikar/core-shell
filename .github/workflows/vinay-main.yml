@@ -80,8 +80,8 @@ jobs:
         
 # push  docker image
         
-      #- name: push docker image
-        #run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
+      - name: push docker image
+        run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
         
 
          
