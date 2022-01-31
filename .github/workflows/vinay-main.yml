@@ -80,7 +80,7 @@ jobs:
         
 # push  docker image
         
-      - name: push docker image
+      - name: Docker Image to Container Registry (GCR)
         run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
         
 
