@@ -30,12 +30,19 @@ jobs:
         run: java -version 
         
          
-      - name: checking java version 
-        run: |
-         cd ./account-service
-         pwd
-         mvn -v
-         docker --version
+      - name: changing directoey 
+        run: cd ./account-service
+        
+      - name: present working directory 
+        run: pwd
+
+      - name: maven version 
+        run: mvn -v
+        
+      - name: docker version 
+        run: docker --version
+         
+         
 
         
  
