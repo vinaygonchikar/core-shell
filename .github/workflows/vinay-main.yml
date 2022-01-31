@@ -34,6 +34,8 @@ jobs:
         run: |
          cd ./account-service
          pwd
+         docker build -t hello/hello/hello:v2.0.1 .
+         docker images
         
       - name: present working directory 
         run: pwd
