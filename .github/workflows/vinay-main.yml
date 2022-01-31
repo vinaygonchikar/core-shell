@@ -3,8 +3,13 @@ name: CI-build & push to GCR on chnages to develop & feature branch
 
 on:
   workflow_dispatch:
-  push:
-      branches: [develop, master, feature/*]
+    inputs:
+      docker image tag:
+        description: 'enter '     
+        required: true
+        default: '2.01'
+  #push:
+      #branches: [develop, master, feature/*]
   
 
   
