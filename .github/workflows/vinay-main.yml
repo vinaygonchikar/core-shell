@@ -31,7 +31,9 @@ jobs:
         
          
       - name: changing directoey 
-        run: cd ./account-service
+        run: |
+         cd ./account-service
+         echo pwd
         
       - name: present working directory 
         run: pwd
