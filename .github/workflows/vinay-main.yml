@@ -16,14 +16,6 @@ on:
   #push:
       #branches: [develop, master, feature/*]
   
-
-
-env:
-  HOSTNAME: us.gcr.io
-  PROJECT_ID: astute-cumulus-337508
-  IMAGE_NAME: ${{ github.event.repository.name }}
-  MAVEN_GOAL: clean install
-  
   
 jobs:
  Build-Push-GCR:
