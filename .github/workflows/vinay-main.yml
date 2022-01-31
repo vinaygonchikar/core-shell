@@ -20,8 +20,9 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      #- name: Build with Maven
-        #run: mvn --batch-mode --update-snapshots verify
+      - name: Build with Maven
+        # run: mvn --batch-mode --update-snapshots verify
+        run: mvn clean install
 
       - name: present working directory 
         run: pwd
