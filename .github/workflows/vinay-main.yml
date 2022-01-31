@@ -2,6 +2,7 @@
 name: CI-build & push to GCR on chnages to develop & feature branch
 
 on:
+  workflow_dispatch
   push:
     branches:
     - develop
