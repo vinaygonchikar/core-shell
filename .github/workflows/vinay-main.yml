@@ -20,8 +20,8 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots verify
+      #- name: Build with Maven
+        #run: mvn --batch-mode --update-snapshots verify
 
       - name: present working directory 
         run: pwd
@@ -31,9 +31,11 @@ jobs:
         
          
       - name: checking java version 
-        run: cd account-service
-        
-      - name: present working directory 
-        run: pwd        
+        run: |
+         cd ./account-service
+         pwd
+         mvn -v
+         docker --version
+
         
  
