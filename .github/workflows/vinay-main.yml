@@ -20,7 +20,7 @@ on:
 
 env:
   HOSTNAME: us.gcr.io
-  PROJECT_ID: io1-homeservices-dev
+  PROJECT_ID: astute-cumulus-337508
   IMAGE_NAME: ${{ github.event.repository.name }}
   MAVEN_GOAL: clean install
   
@@ -85,10 +85,16 @@ jobs:
         run: |
           cd ./account-service
           docker build -t $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }} .
-          docker images
           
-      - name: Build with Maven
+# show all docker images in vm
+          
+      - name: docker image
         run: docker images
+        
+# push  docker image
+        
+      - name: push docker image
+        run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
         
 
          
