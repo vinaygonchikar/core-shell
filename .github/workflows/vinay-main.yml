@@ -17,8 +17,13 @@ on:
       #branches: [develop, master, feature/*]
   
 #Environment variables
+
 env:
-  First_Name: VINAY
+  Hostname: us.gcr.io
+  PROJECT_ID: io1-homeservices-dev
+  IMAGE_NAME: ${{ github.event.repository.name }}
+  MAVEN_GOAL: clean install
+  
   
 jobs:
  ci:
@@ -44,14 +49,14 @@ jobs:
 # build artifact with maven 
   
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn ${{ env.MAVEN_GOAL }}
         
 # build docker image
 
       - name: build docker image
         run: |
           cd ./account-service
-          docker build -t us.gcr.io/io1-homeservices-dev/${{ github.event.repository.name }}:${{ github.event.inputs.image-tag }} .
+          docker build -t ${{ env.Hostname }}/${{ env.PROJECT_ID }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.image-tag }} .
           docker images
           
       - name: Build with Maven
