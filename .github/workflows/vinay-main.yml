@@ -67,11 +67,10 @@ jobs:
 #configure docker use Google cloud while pushing image
 
       - name: Configure Docker Client
-        run: |-
+        run: |
           gcloud auth configure-docker --quiet
           gcloud auth configure-docker ${{ env.PROJECT_ID } --quiet
-        
-
+          
           
 # show all docker images in vm
           
