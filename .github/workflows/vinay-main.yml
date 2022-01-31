@@ -6,7 +6,7 @@ name: CI-build & push to GCR on chnages to develop & feature branch
 on:
   workflow_dispatch:
     inputs:
-      docker image tag:
+      image-tag:
         description: 'enter docker image version'     
         required: true
         default: '2.01'
@@ -16,7 +16,9 @@ on:
   #push:
       #branches: [develop, master, feature/*]
   
-
+#Environment variables
+env:
+  First_Name: VINAY
   
 jobs:
  ci:
@@ -49,7 +51,7 @@ jobs:
       - name: build docker image
         run: |
           cd ./account-service
-          docker build -t us.gcr.io/io1-homeservices-dev/${{ github.event.repository.name }}:${{ github.event.inputs.docker image tag }} .
+          docker build -t us.gcr.io/io1-homeservices-dev/${{ github.event.repository.name }}:${{ github.event.inputs.image-tag }} .
           docker images
           
       - name: Build with Maven
