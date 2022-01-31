@@ -1,6 +1,8 @@
 
 name: CI-build & push to GCR on chnages to develop & feature branch
 
+# manully trigger the job 
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,6 +10,9 @@ on:
         description: 'enter docker image version'     
         required: true
         default: '2.01'
+        
+# trigger the job on push below branches 
+
   #push:
       #branches: [develop, master, feature/*]
   
@@ -16,40 +21,35 @@ on:
 jobs:
  ci:
 
+#choose the OS in which you want to trigger the job 
+
     runs-on: ubuntu-latest
     steps:
+    
+# checkout to barnch u manually trigger or to the branch with latest commit
+
       - uses: actions/checkout@v2
+      
+      
+# install java in VM
+      
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
+          
+# build artifact with maven 
+  
       - name: Build with Maven
-        # run: mvn --batch-mode --update-snapshots verify
         run: mvn clean install
-
-      - name: present working directory 
-        run: pwd
- 
-      - name: checking java version 
-        run: java -version 
         
-         
-      - name: changing directoey 
+# build docker image
+
+      - name: build docker image
         run: |
-         cd ./account-service
-         pwd
-         docker build -t hello/hello/hello:v2.0.1 .
-         docker images
-        
-      - name: present working directory 
-        run: pwd
-
-      - name: maven version 
-        run: mvn -v
-        
-      - name: docker version 
-        run: docker --version
+          cd ./account-service
+          docker build -t us.gcr.io/io1-homeservices-dev/${{ github.event.repository.name }}:v2.0.1 .
          
          
 
