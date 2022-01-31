@@ -33,7 +33,7 @@ jobs:
       - name: changing directoey 
         run: |
          cd ./account-service
-         echo pwd
+         pwd
         
       - name: present working directory 
         run: pwd
