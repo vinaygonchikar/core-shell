@@ -19,6 +19,7 @@ on:
   
 jobs:
  Build-Push-GCR:
+ 
 
 #choose the OS in which you want to trigger the job 
 
@@ -30,10 +31,25 @@ jobs:
       IMAGE_NAME: ${{ github.event.repository.name }}
       MAVEN_GOAL: clean install
       SLACK_CHANNEL: hello-see-log
+      GITHUB_DNS: https://github.com
     steps:
-    
-# checkout to barnch u manually trigger or to the branch with latest commit
 
+      - name: Build with Maven
+        run: echo "$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID"
+
+
+# checkout to barnch u manually trigger or to the branch with latest commit
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          channel-id: 'hello-see-log'
+          slack-message: "$GITHUB_WORKFLOW triggered in $GITHUB_REF_NAME branch <$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID|check it out>  "
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          
+# checkout to barnch u manually trigger or to the branch with latest commit          
+          
       - uses: vinaygonchikar/checkout@v2
       
       
