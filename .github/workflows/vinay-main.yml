@@ -40,6 +40,8 @@ jobs:
         run: |
           echo ${{ env.URL_GITACTION }}
           echo ${GITHUB_REF##*/}
+          echo ${{jobs.<job_id>.environment.url }}
+          echo ${{ github.actor }} 
 
 
 # checkout to barnch u manually trigger or to the branch with latest commit
