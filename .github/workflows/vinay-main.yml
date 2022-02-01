@@ -38,6 +38,7 @@ jobs:
       - name: Build with Maven
         run: |
           echo ${{ github.html_url }}
+          echo github['sha']
 #           echo ${{ env.URL_GITACTION }}
 #           echo ${GITHUB_REF##*/}
 #           echo ${{ github.actor }} 
