@@ -142,7 +142,8 @@ jobs:
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           channel-id: 'hello-see-log'
           # For posting a simple plain text message
-          slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url :||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions }}"
+          #slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url"
+          slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }} ||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
