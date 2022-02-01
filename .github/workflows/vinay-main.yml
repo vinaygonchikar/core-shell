@@ -36,7 +36,7 @@ jobs:
     steps:
 
       - name: Build with Maven
-        run: echo $GITHUB_DNS/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+        run: echo $URL_GITACTION
 
 
 # checkout to barnch u manually trigger or to the branch with latest commit
@@ -45,7 +45,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: 'hello-see-log'
-          slack-message: " ${{ github.repository }} triggered in $GITHUB_REF_NAME branch <$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID|check it out> "
+          slack-message: " Build-Push-GCR job is strated in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch <${{ env.URL_GITACTION }}|check it out> "
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
@@ -143,7 +143,7 @@ jobs:
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           channel-id: 'hello-see-log'
           # For posting a simple plain text message
-          slack-message: "GitHub build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
