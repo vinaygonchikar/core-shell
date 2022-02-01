@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@vinaygonchikar 
-vinaygonchikar
-/
-sample-spring-microservices
-Public
-forked from Zulaikha12/sample-spring-microservices
-Code
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-sample-spring-microservices/.github/workflows/vinay-main.yml
-@vinaygonchikar
-vinaygonchikar Update vinay-main.yml
-Latest commit eba8216 1 minute ago
- History
- 1 contributor
-209 lines (162 sloc)  6.36 KB
-   
-
 name: CI-Build and Push to GCR
 
 # manully trigger the job 
