@@ -37,7 +37,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          echo "${{ GITHUB_RUN_ID }}"
+          echo "${{ github.run_id }}"
           echo "{{ github.run_number }}"
 #           echo "$GITHUB_RUN_NUMBER"echo "${{ github.server_url }}/${{ github.repository }}"
 #           echo ${{ env.URL_GITACTION }}
