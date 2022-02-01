@@ -82,8 +82,8 @@ jobs:
       - name: docker image
         run: |
           echo "$GITHUB_ACTION"	
-          echo "$GITHUB_ACTION_PATH"
-          echo "$GITHUB_ACTION_REPOSITORY"
+          "$GITHUB_ACTION_PATH"
+          "$GITHUB_ACTION_REPOSITORY"
           echo "$GITHUB_ACTIONS"
           echo "$GITHUB_ACTOR"
           echo "$GITHUB_API_URL"
@@ -119,6 +119,7 @@ jobs:
         #run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
         
       - name: Post to a Slack channel
+        if: always()
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
