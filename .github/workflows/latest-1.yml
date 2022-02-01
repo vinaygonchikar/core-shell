@@ -41,8 +41,8 @@ jobs:
         if: always()
         uses: slackapi/slack-github-action@v1.18.0
         with:
-          channel-id: 'hello-see-log'
-          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.server_url }}/${{ github.repository }}/actions
+          channel-id: 'hello-see-log' #${{ github.job }} job in worflow 
+          slack-message:  ${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} ||| has started ||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
@@ -142,7 +142,7 @@ jobs:
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           channel-id: 'hello-see-log'
           # For posting a simple plain text message
-          slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+          slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url :||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
