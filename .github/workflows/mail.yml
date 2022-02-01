@@ -1,0 +1,62 @@
+
+name: send mail 
+
+# manully trigger the job 
+
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'enter docker image version'     
+        required: true
+        default: '2.01'
+        
+# trigger the job on push below branches 
+
+  #push:
+      #branches: [develop, master, feature/*]
+  
+  
+jobs:
+ Build-Push-GCR:
+ 
+
+#choose the OS in which you want to trigger the job 
+
+    runs-on: ubuntu-latest
+#Environment variables
+    env:
+      HOSTNAME: us.gcr.io
+      PROJECT_ID: astute-cumulus-337508
+      IMAGE_NAME: ${{ github.event.repository.name }}
+      MAVEN_GOAL: clean install
+      SLACK_CHANNEL: hello-see-log
+      GITHUB_DNS: https://github.com
+      URL_GITACTION: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+      GIT_branch: ${GITHUB_REF##*/}
+    steps:
+
+# checkout to barnch u manually trigger or to the branch with latest commit
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          channel-id: 'hello-see-log' #${{ github.job }} job in worflow 
+          slack-message:  ${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} ||| has started ||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+          
+          
+# checkout to barnch u manually trigger or to the branch with latest commit          
+          
+      - uses: vinaygonchikar/checkout@v2
+      
+      
+# install java in VM
+      
+      - name: Set up JDK 11
+        uses: vinaygonchikar/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
