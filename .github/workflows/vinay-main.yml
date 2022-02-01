@@ -1,5 +1,5 @@
 
-name: CI-Build and Push docker Image to Google Cloud Platform
+name: CI-Build and Push to GCR
 
 # manully trigger the job 
 
@@ -48,7 +48,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: 'hello-see-log'
-          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has 
+          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.URL_GITACTION }}
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
