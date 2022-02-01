@@ -35,7 +35,7 @@ jobs:
     steps:
 
       - name: Build with Maven
-        run: echo "$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID"
+        run: echo $GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID
 
 
 # checkout to barnch u manually trigger or to the branch with latest commit
