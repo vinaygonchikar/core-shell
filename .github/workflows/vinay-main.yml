@@ -40,8 +40,6 @@ jobs:
         run: |
           echo ${{ env.URL_GITACTION }}
           echo ${GITHUB_REF##*/}
-          echo ${{jobs.github.environment.url }}
-          echo ${{ job_id }}
           echo ${{ github.actor }} 
 
 
