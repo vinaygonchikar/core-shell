@@ -81,8 +81,6 @@ jobs:
         
       - name: docker image
         run: |
-          $GITHUB_ACTION	
-          $GITHUB_ACTION_PATH
           $GITHUB_ACTION_REPOSITORY
           $GITHUB_ACTIONS
           $GITHUB_ACTOR
