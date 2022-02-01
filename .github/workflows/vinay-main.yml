@@ -48,7 +48,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: 'hello-see-log'
-          slack-message:  Build-Push-GCR job is strated in ${{ github.event.repository.name }} repository picked $GIT_branch $GITHUB_RUN_ID branch. check it out| $URL_GITACTION 
+          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has 
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
