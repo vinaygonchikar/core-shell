@@ -44,7 +44,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.18.0
         with:
           channel-id: 'hello-see-log'
-          slack-message: $GITHUB_WORKFLOW triggered in $GITHUB_REF_NAME branch <$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID|check it out>
+          slack-message: " ${{ env.GITHUB_WORKFLOW }} triggered in $GITHUB_REF_NAME branch <$GITHUB_DNS/$GITHUB_REPOSITORY/runs/$GITHUB_RUN_ID|check it out> "
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
