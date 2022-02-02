@@ -37,14 +37,14 @@ jobs:
     steps:
 
 # checkout to barnch u manually trigger or to the branch with latest commit
-      - name: Post to a Slack channel
-        if: always()
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          channel-id: 'hello-see-log' #${{ github.job }} job in worflow 
-          slack-message:  ${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} ||| has started ||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      # - name: Post to a Slack channel
+      #   if: always()
+      #   uses: slackapi/slack-github-action@v1.18.0
+      #   with:
+      #     channel-id: 'hello-see-log' #${{ github.job }} job in worflow 
+      #     slack-message:  ${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} ||| has started ||| check this out ||| ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
           
           
@@ -60,3 +60,43 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
+
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # Required mail server address:
+          server_address: smtp.gmail.com
+          # Required mail server port:
+          server_port: 465
+          # Optional (recommended): mail server username:
+          username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
+          password: ${{secrets.MAIL_PASSWORD}}
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
+          to: vinayreddygn@outlook.com,vinayreddygn@outlook.com
+          # Required sender full name (address can be skipped):
+          from: Luke Skywalker # <user@example.com>
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Optional plain body:
+          body: Build job of ${{github.repository}} completed successfully!
+          # Optional HTML body read from file:
+          html_body: file://README.html
+          # Optional carbon copy recipients:
+          cc: vinayreddygn@outlook.com
+          # Optional blind carbon copy recipients:
+          bcc: vinayreddygn@outlook.com
+          # Optional recipient of the email response:
+          reply_to: vinayreddygn@outlook.com
+          # Optional Message ID this message is replying to:
+          in_reply_to: vinayreddygn@outlook.com
+          # Optional unsigned/invalid certificates allowance:
+          ignore_cert: true
+          # Optional converting Markdown to HTML (set content_type to text/html too):
+          convert_markdown: true
+          # Optional attachments:
+          attachments: attachments.zip,git.diff,./dist/static/*.js
+          # Optional priority: 'high', 'normal' (default) or 'low'
+          priority: low
