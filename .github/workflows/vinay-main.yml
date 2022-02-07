@@ -1,4 +1,4 @@
-name: CI-Build and Push to GCR
+name: TEST CI
 
 # manully trigger the job 
 
@@ -35,6 +35,10 @@ jobs:
       GIT_branch: ${GITHUB_REF##*/}
     steps:
 
+
+      - name: Build with Maven
+        run: mvn -version
+        
       - name: Build with Maven
         run: |
           echo "${{ github.run_id }}"
