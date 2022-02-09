@@ -11,7 +11,7 @@ on:
         default: '2.01'
   push:
     branches:
-      - feature-111000
+      - feature**
       - master
 # trigger the job on push below branches 
 
