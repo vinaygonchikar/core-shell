@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - 'feature/**'
+      - master 
 # trigger the job on push below branches 
 
   #push:
