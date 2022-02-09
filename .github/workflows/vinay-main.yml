@@ -5,7 +5,7 @@ name: TEST CI
 on:
   push:
     branches:
-      - 'feature**'
+      - 'feature-**'
       - master
 # trigger the job on push below branches 
 
