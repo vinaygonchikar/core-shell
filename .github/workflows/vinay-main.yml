@@ -9,7 +9,7 @@ on:
 
   push:
     branches: 
-      - feature-111000
+      - 'feature*'
   
   
 jobs:
