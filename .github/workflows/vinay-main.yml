@@ -3,12 +3,6 @@ name: TEST CI
 # manully trigger the job 
 
 on:
-  workflow_dispatch:
-    inputs:
-      image-tag:
-        description: 'enter docker image version'     
-        required: true
-        default: '2.01'
   push:
     branches:
       - feature**
