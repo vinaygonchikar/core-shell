@@ -11,8 +11,8 @@ on:
         default: '2.01'
   push:
     branches:
-      - 'feature/**'
-      - master 
+      - feature-111000
+      - maingue
 # trigger the job on push below branches 
 
   #push:
