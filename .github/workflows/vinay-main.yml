@@ -10,6 +10,10 @@ on:
         required: true
         default: '2.01'
         
+  push:
+    branches:
+     - 'feature/**'
+        
 # trigger the job on push below branches 
 
   #push:
