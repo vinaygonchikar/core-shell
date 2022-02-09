@@ -1,0 +1,36 @@
+name: TEST CI
+
+# manully trigger the job 
+
+on:
+  #push:
+    #branches: [ feature-111000 ]
+# trigger the job on push below branches 
+
+  push:
+    branches: 
+      - 'feature*'
+  
+  
+jobs:
+ Build-Push-GCR:
+ 
+
+#choose the OS in which you want to trigger the job 
+
+    runs-on: ubuntu-latest
+#Environment variables
+    env:
+      HOSTNAME: us.gcr.io
+      PROJECT_ID: astute-cumulus-337508
+      IMAGE_NAME: ${{ github.event.repository.name }}
+      MAVEN_GOAL: clean install
+      SLACK_CHANNEL: hello-see-log
+      GITHUB_DNS: https://github.com
+      URL_GITACTION: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+      GIT_branch: ${GITHUB_REF##*/}
+    steps:
+
+
+      - name: Build with Maven
+        run: mvn -version
