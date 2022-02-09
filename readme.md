@@ -6,6 +6,8 @@ details hi
 
 how are u
 ih
+how are u
+ih
 
 
 hi
