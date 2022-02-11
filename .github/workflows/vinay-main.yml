@@ -32,13 +32,13 @@ jobs:
     steps:
 
 
-      - name: Build with Maven
-        run: mvn -version
+      # - name: Build with Maven
+      #   run: mvn -version
         
-      - name: Build with Maven
-        run: |
-          echo "${{ github.run_id }}"
-          echo "{{ github.run_number }}"
+      # - name: Build with Maven
+      #   run: |
+      #     echo "${{ github.run_id }}"
+      #     echo "{{ github.run_number }}"
 #           echo "$GITHUB_RUN_NUMBER"echo "${{ github.server_url }}/${{ github.repository }}"
 #           echo ${{ env.URL_GITACTION }}
 #           echo ${GITHUB_REF##*/}
@@ -91,63 +91,63 @@ jobs:
 
 
 # # checkout to barnch u manually trigger or to the branch with latest commit
-#       - name: Post to a Slack channel
-#         if: always()
-#         uses: slackapi/slack-github-action@v1.18.0
-#         with:
-#           channel-id: 'hello-see-log'
-#           slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.URL_GITACTION }}
-#         env:
-#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          channel-id: 'hello-see-log'
+          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.URL_GITACTION }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
           
           
 # # checkout to barnch u manually trigger or to the branch with latest commit          
           
-#       - uses: vinaygonchikar/checkout@v2
+      - uses: vinaygonchikar/checkout@v2
       
       
 # # install java in VM
       
-#       - name: Set up JDK 11
-#         uses: vinaygonchikar/setup-java@v2
-#         with:
-#           java-version: '11'
-#           distribution: 'adopt'
+      - name: Set up JDK 11
+        uses: vinaygonchikar/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
           
 # # Build with Maven
   
-#       #- name: Build with Maven
-#         #run: mvn $MAVEN_GOAL
+      - name: Build with Maven
+        run: mvn $MAVEN_GOAL
         
 # #Authentication to GCR
         
-#       #- uses: vinaygonchikar/setup-gcloud@master
-#         #with:
-#           #service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-#           #project_id: ${{ env.PROJECT_ID }}
-#           #export_default_credentials: true
+      - uses: vinaygonchikar/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
           
 # # change path & build docker image
           
-#       #- name: build docker image
-#         #run: |
-#           #cd ./account-service
-#           #docker build -t $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }} .
+      - name: build docker image
+        run: |
+          cd ./account-service
+          docker build -t $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }} .
         
 # #configure docker use Google cloud while pushing image
 
 
-#       #- name: Configure Docker Client
-#         #run: |-
-#           #gcloud auth configure-docker --quiet
-#           #gcloud auth configure-docker $env.PROJECT_ID --quiet
+      - name: Configure Docker Client
+        run: |-
+          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker $env.PROJECT_ID --quiet
 
           
 # # show all docker images in vm
           
-#       - name: docker image
-#         run: docker images
+      - name: docker image
+        run: docker images
         
 #       - name: docker image
 #         run: |
@@ -185,20 +185,20 @@ jobs:
         
 # # push  docker image
         
-#       #- name: Docker Image to Container Registry (GCR)
-#         #run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
+      - name: Docker Image to Container Registry (GCR)
+        run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
         
-#       - name: Post to a Slack channel
-#         if: always()
-#         uses: slackapi/slack-github-action@v1.18.0
-#         with:
-#           # Slack channel id, channel name, or user id to post message.
-#           # See also: https://api.slack.com/methods/chat.postMessage#channels
-#           channel-id: 'hello-see-log'
-#           # For posting a simple plain text message
-#           slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-#         env:
-#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          channel-id: 'hello-see-log'
+          # For posting a simple plain text message
+          slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
 
         
