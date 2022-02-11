@@ -1,4 +1,4 @@
-name: CI-Build and Push docker Image to Google Container Registry
+name: Pre-prod-CI 
 
 # manully trigger the job 
 
@@ -10,14 +10,15 @@ on:
         required: true
         default: 'v2.0.1'
         
-# trigger the job on push below branches 
+# trigger the job on push for all branches except pre-prod 
 
-  #push:
-      #branches: [develop, master, feature/*]
+  push:
+    branches: 
+      - 'feature**'
   
   
 jobs:
- Build-Push-GCR:
+ Build-Push-To-GCR:
 
 #choose the OS in which you want to trigger the job 
 
@@ -26,10 +27,23 @@ jobs:
     env:
       HOSTNAME: us.gcr.io 
       PROJECT_ID: io1-homeservices-dev
-      IMAGE_NAME: pro-xtra-ingestion-pub-sub #${{ github.event.repository.name }} pro-xtra-ingestion-pub-sub
+      IMAGE_NAME: pro-xtra-ingestion-pub-sub #${{ github.event.repository.name }} 
       MAVEN_GOAL: clean install
+      SLACK_CHANNEL: das-team
     steps:
     
+
+# # post slack message that job is triggered 
+
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          channel-id: ${{ env.SLACK_CHANNEL }}
+          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.URL_GITACTION }}
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
 # checkout to barnch u manually trigger or to the branch with latest commit
 
       - uses: actions/checkout@v2
@@ -79,3 +93,19 @@ jobs:
         
       - name: Docker Image to Container Registry (GCR)
         run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
+
+
+# # post slack message that job status
+
+      - name: Post to a Slack channel
+        if: always()
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          channel-id: ${{ env.SLACK_CHANNEL }}
+          # For posting a simple plain text message
+          slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          
