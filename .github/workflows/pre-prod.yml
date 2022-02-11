@@ -1,0 +1,81 @@
+name: CI-Build and Push docker Image to Google Container Registry
+
+# manully trigger the job 
+
+on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'enter image tag'     
+        required: true
+        default: 'v2.0.1'
+        
+# trigger the job on push below branches 
+
+  #push:
+      #branches: [develop, master, feature/*]
+  
+  
+jobs:
+ Build-Push-GCR:
+
+#choose the OS in which you want to trigger the job 
+
+    runs-on: ubuntu-latest
+#Environment variables
+    env:
+      HOSTNAME: us.gcr.io 
+      PROJECT_ID: io1-homeservices-dev
+      IMAGE_NAME: pro-xtra-ingestion-pub-sub #${{ github.event.repository.name }} pro-xtra-ingestion-pub-sub
+      MAVEN_GOAL: clean install
+    steps:
+    
+# checkout to barnch u manually trigger or to the branch with latest commit
+
+      - uses: actions/checkout@v2
+      
+      
+# install java in VM
+      
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          
+# Build with Maven
+  
+      - name: Build with Maven
+        run: mvn $MAVEN_GOAL
+        
+#Authentication to GCR
+        
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          export_default_credentials: true
+          
+# change path & build docker image
+          
+      - name: build docker image
+        run: |
+          docker build -t $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }} .
+        
+#configure docker use Google cloud while pushing image
+
+
+      - name: Configure Docker Client
+        run: |-
+          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker $env.PROJECT_ID --quiet
+          
+# show all docker images in vm
+          
+      - name: docker image
+        run: docker images
+        
+# push  docker image
+        
+      - name: Docker Image to Container Registry (GCR)
+        run: docker push $HOSTNAME/$PROJECT_ID/$IMAGE_NAME:${{ github.event.inputs.image-tag }}
