@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: vinaygonchikar/checkout@v2
       - name: Set the value
         id: step_one
         run: |
