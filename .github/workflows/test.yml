@@ -34,7 +34,7 @@ jobs:
       URL_GITACTION: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
       GIT_branch: ${GITHUB_REF##*/}
     steps:
-
+      - uses: vinaygonchikar/checkout@v2
 
       - name: Build with Maven
         run: mvn -version
@@ -92,7 +92,9 @@ jobs:
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
 
-
+      - name: Set GitHub_Env value
+        run: |
+          echo "SLACK_CHANNEL=hello-see-log" >> $GITHUB_ENV
 
 # checkout to barnch u manually trigger or to the branch with latest commit
       - name: Post to a Slack channel
@@ -108,7 +110,7 @@ jobs:
           
 # checkout to barnch u manually trigger or to the branch with latest commit          
           
-      - uses: vinaygonchikar/checkout@v2
+
       
       
 # install java in VM
@@ -142,6 +144,7 @@ jobs:
 #configure docker use Google cloud while pushing image
 
 
+          
       - name: Configure Docker Client
         run: |-
           gcloud auth configure-docker --quiet
@@ -198,7 +201,7 @@ jobs:
         with:
           # Slack channel id, channel name, or user id to post message.
           # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: 'hello-see-log'
+          channel-id: $SLACK_CHANNEL
           # For posting a simple plain text message
           #slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url"
           slack-message: "${{ github.workflow }} ||| in ${{ github.event.repository.name }} repository  ||| in ${{ github.ref_name }} ${{ github.ref_type }} ||| is a ${{ job.status }} ||| click below url to see logs ||| ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
