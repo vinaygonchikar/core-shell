@@ -1,4 +1,4 @@
-name: Pre-prod-CI 
+name: prod-CI 
 
 # manully trigger the job 
 
