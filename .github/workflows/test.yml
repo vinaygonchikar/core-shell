@@ -96,6 +96,10 @@ jobs:
         run: |
           echo "SLACK_CHANNEL=hello-see-log" >> $GITHUB_ENV
 
+      - name: Set GitHub_Env value
+        run: |
+          echo "job status will be sent to ${{ env.SLACK_CHANNEL }} slack channel"
+
 # checkout to barnch u manually trigger or to the branch with latest commit
       - name: Post to a Slack channel
         if: always()
@@ -201,7 +205,7 @@ jobs:
         with:
           # Slack channel id, channel name, or user id to post message.
           # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: $SLACK_CHANNEL
+          channel-id: '${{ env.SLACK_CHANNEL }}'
           # For posting a simple plain text message
           #slack-message: "${{ github.workflow }} job ||| in repo ${{ github.event.repository.name }} is ||| : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url"
           slack-message: "${{ github.workflow }} ||| in ${{ github.event.repository.name }} repository  ||| in ${{ github.ref_name }} ${{ github.ref_type }} ||| is a ${{ job.status }} ||| click below url to see logs ||| ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
