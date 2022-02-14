@@ -15,6 +15,7 @@ on:
   push:
     branches: 
       - 'feature**'
+      - 'master'
   
   
 jobs:
@@ -30,6 +31,8 @@ jobs:
       IMAGE_NAME: pro-xtra-ingestion-pub-sub #${{ github.event.repository.name }} 
       MAVEN_GOAL: clean install
       SLACK_CHANNEL: hello-see-log
+      URL_GITACTION: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+      GIT_branch: ${GITHUB_REF##*/}
     steps:
     
 
@@ -102,15 +105,15 @@ jobs:
 
 # # post slack message that job status
 
-      - name: Post to a Slack channel
-        if: always()
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: ${{ env.SLACK_CHANNEL }}
-          # For posting a simple plain text message
-          slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+#       - name: Post to a Slack channel
+#         if: always()
+#         uses: slackapi/slack-github-action@v1.18.0
+#         with:
+#           # Slack channel id, channel name, or user id to post message.
+#           # See also: https://api.slack.com/methods/chat.postMessage#channels
+#           channel-id: 'hello-see-log'
+#           # For posting a simple plain text message
+#           slack-message: "Build-Push-GCR job in ${{ github.event.repository.name }} picked $GITHUB_REF_NAME branch : ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+#         env:
+#           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           
