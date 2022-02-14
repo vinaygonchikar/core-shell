@@ -11,6 +11,7 @@ on:
         default: 'v2.0.1'
   push:
     branches:
+      - *
     tags:        
       - v*
  
