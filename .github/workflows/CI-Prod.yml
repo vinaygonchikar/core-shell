@@ -3,19 +3,8 @@ name: prod-CI
 # manully trigger the job 
 
 on:
-  workflow_dispatch:
-    inputs:
-      image-tag:
-        description: 'enter image tag'     
-        required: true
-        default: 'v2.0.1'
-        
-# trigger the job on push for all branches except pre-prod 
-
   push:
-    branches: 
-      - 'feature**'
-      - 'master'
+
   
   
 jobs:
@@ -64,3 +53,12 @@ jobs:
         with:
           java-version: '8'
           distribution: 'adopt'
+          
+      - name: Set up JDK 8
+        run: |
+          ls -la
+          pwd
+          git clone https://github.com/vinaygonchikar/githubvariable.git
+          ls -la
+          pwd
+        
