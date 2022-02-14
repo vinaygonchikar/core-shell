@@ -94,7 +94,7 @@ jobs:
 
       - name: Set GitHub_Env value
         run: |
-          echo "SLACK_CHANNEL=hello-see-log" >> $GITHUB_ENV
+          echo "SLACK_CHANNEL=hello-see-log" >> $GITHUB_ENV 
 
       - name: Set GitHub_Env value
         run: |

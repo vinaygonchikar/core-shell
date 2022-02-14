@@ -3,49 +3,27 @@ name: prod-CI
 # manully trigger the job 
 
 on:
+  workflow_dispatch:
+    inputs:
+      image-tag:
+        description: 'enter image tag'     
+        required: true
+        default: 'v2.0.1'
   push:
-
-  
-  
+    tags:        
+      - v*
+ 
 jobs:
  Build-Push-To-GCR:
 
-#choose the OS in which you want to trigger the job 
+
 
     runs-on: ubuntu-latest
-#Environment variables
-    env:
-      HOSTNAME: us.gcr.io 
-      PROJECT_ID: io1-homeservices-dev
-      IMAGE_NAME: pro-xtra-ingestion-pub-sub #${{ github.event.repository.name }} 
-      MAVEN_GOAL: clean install
-      SLACK_CHANNEL: hello-see-log
-      URL_GITACTION: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-      GIT_branch: ${GITHUB_REF##*/}
+
+
     steps:
-    
-
-# # post slack message that job is triggered 
-
-      - name: Post to a Slack channel
-        if: always()
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          channel-id: ${{ env.SLACK_CHANNEL }}
-          slack-message:  ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.event.repository.name }} has started | check this out | ${{ github.URL_GITACTION }}
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-# checkout to barnch u manually trigger or to the branch with latest commit
-
       - uses: actions/checkout@v2
-
-      - name: Set the GITHUB_ENVvalue
-        run: |
-          echo "IMAGE_NAME=$(cat ./pom.xml | grep "artifactId" | cut -d'>' -f2 | cut -d'<' -f1 | head -1)" >> $GITHUB_ENV 
-          echo "TAG_NAME=$(cat ./pom.xml | grep "version" | cut -d'>' -f2 | cut -d'<' -f1 | head -1)" >> $GITHUB_ENV
-          echo "${{ env.IMAGE_NAME }}" 
-          echo "${{ env.TAG_NAME }}"    
+ 
 # install java in VM
       
       - name: Set up JDK 8
@@ -54,12 +32,42 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
           
-      - name: Set up JDK 8
+      - name: display all environmental varaibles
         run: |
-          ls -la
-          pwd
-          git clone https://github.com/vinaygonchikar/githubvariable.git
-          ls -la
-          pwd
-          git clone https://github.com/vinaygonchikar/githubvariable.git
+          echo "${{ github.run_id }}"
+          echo "{{ github.run_number }}"
+          echo "$GITHUB_RUN_NUMBER"echo "${{ github.server_url }}/${{ github.repository }}"
+          echo ${{ env.URL_GITACTION }}
+          echo ${GITHUB_REF##*/}
+          echo ${{ github.actor }} 
+          echo ${{ github.action_path }}
+          echo ${{ github.action_ref }}
+          echo ${{ github.action_repository	}}
+          echo ${{ github.actor }}
+          echo ${{ github.api_url }}
+          echo ${{ github.base_ref }}
+          echo ${{ github.env }}
+          echo ${{ github.event }}
+          echo ${{ github.event_name }}
+          echo ${{ github.event_path }}
+          echo ${{ github.graphql_url }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.job }}
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.ref_protected }}
+          echo ${{ github.ref_type }}
+          echo ${{ github.path	 }}
+          echo ${{ github.repository }}
+          echo ${{ github.repository_owner }}
+          echo ${{ github.repositoryUrl }}
+          echo ${{ github.retention_days }}
+          echo ${{ github.run_id }}
+          echo ${{ github.run_number }}
+          echo ${{ github.run_attempt }}
+          echo ${{ github.server_url }}
+          echo ${{ github.sha }}
+          echo ${{ github.token }}
+          echo ${{ github.workflow }}
+          echo ${{ github.workspace }}
         
