@@ -76,33 +76,9 @@ jobs:
         run: |-
           if [[ ${{ github.event_name }} == workflow_dispatch ]]; then echo "IMAGE_TAG=${{ github.event.inputs.image-tag }}" >> $GITHUB_ENV; fi
           if [[ ${{ github.ref_type }} == tag ]]; then echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV; fi
-          echo "${{ env.IMAGE_TAG }}" 
-          echo "TAG_NAME=$(echo "${{ env.IMAGE_TAG }}" | cut -d'v' -f2 | cut -d'V' -f2)" >> $GITHUB_ENV
-          echo "${{ env.TAG_NAME }}"
-          
-          # echo "IMAGE_NAME=$(cat ./pom.xml | grep "artifactId" | cut -d'>' -f2 | cut -d'<' -f1 | head -1)" >> $GITHUB_ENV
-          # echo ${{ env.IMAGE_TAG }}
 
-
-
-
-          # if [[ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]]
-          # then
-          # echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
-          # echo "${{ github.ref_name }}"
-          # elif [[ ${{ github.event_name }} == workflow_dispatch ]]
-          # then
-          # echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
-          # echo "${{ inputs.image-tag }}"
-          # fi 
-
-#       - name: what is image tag
-#         run: echo "VINAY=$(echo "${{ env.IMAGE_TAG }}" | cut -d'v' -f2 | cut -d'V' -f2)" >> $GITHUB_ENV
-# # echo "${{ env.IMAGE_TAG }}" 
-          
-               
-#         #  if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit 0; else exit 1; fi
-
-
-#       - name: what is image tag
-#         run: echo "${{ env.VINAY }}"
+      - name: Display the tag of image
+        run: echo "TAG_NAME=$(echo "${{ env.IMAGE_TAG }}" | cut -d'v' -f2 | cut -d'V' -f2)" >> $GITHUB_ENV
+        
+      - name: what is image tag
+        run: echo "${{ env.TAG_NAME }}"
