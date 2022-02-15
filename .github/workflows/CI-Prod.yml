@@ -72,13 +72,14 @@ jobs:
         
       - name: getting tag name
         run: |
-          if [ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]
+          if [[ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]]
           then
-            echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
-            echo ${{ github.ref_name }}
-          elif [ ${{ github.event_name }} == workflow_dispatch ]
-            echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
-            echo ${{ inputs.image-tag }}
+          echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
+          echo "${{ github.ref_name }}"
+          elif [[ ${{ github.event_name }} == workflow_dispatch ]]
+          then
+          echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
+          echo "${{ inputs.image-tag }}"
           fi 
 
       - name: what is image tag
