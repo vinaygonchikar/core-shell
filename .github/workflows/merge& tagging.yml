@@ -12,7 +12,7 @@ on:
         - i just want to tag the master branch
         - i want to merge branch to master & add tag
       image-tag:
-        description: 'enter Semantic Versioning' (it will increment tag number on previous tag)     
+        description: 'enter Semantic Versioning (it will increment tag number on previous tag)'  
         required: true
         default: 'warning' 
         type: choice
