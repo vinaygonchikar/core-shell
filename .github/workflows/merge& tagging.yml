@@ -4,17 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       choice_of_tag:
-        description: 'enter ur choice'     
+        description: 'enter your choice'     
         required: true
         default: 'warning' 
         type: choice
         options:
         - i just want to tag the master branch
-        - i want merge branch to master & add tag
+        - i want to merge branch to master & add tag
       image-tag:
-        description: 'enter image tag'     
+        description: 'enter Semantic Versioning' (it will increment tag number on previous tag)     
         required: true
-        default: 'v'
+        default: 'warning' 
+        type: choice
+        options:
+        - patch
+        - minor 
+        - major
 
 
 
