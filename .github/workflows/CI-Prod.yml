@@ -95,7 +95,7 @@ jobs:
           # fi 
 
       - name: what is image tag
-        run: 
+        run: |
           echo "${{ env.IMAGE_TAG }}" 
           echo "IMAGE_NAME=$(echo "${{ env.IMAGE_TAG }}" | cut -d'v' -f2 | cut -d'V' -f2)" >> $GITHUB_ENV     
         #  if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit 0; else exit 1; fi
