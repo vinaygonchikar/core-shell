@@ -79,7 +79,10 @@ jobs:
           then
           echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
           echo ${{ github.ref_name }}
-          else
+          elif [ ${{ github.event_name }} == workflow_dispatch ]
           echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
           echo ${{ inputs.image-tag }}
-          fi
+          fi 
+
+       - name: what is image tag
+        run: echo echo "${{ env.IMAGE_TAG }}"       
