@@ -72,15 +72,10 @@ jobs:
         
       - name: getting tag name
         run: |
-          if [[ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]]
-          then
-          echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
-          echo "${{ github.ref_name }}"
-          elif [[ ${{ github.event_name }} == workflow_dispatch ]]
-          then
-          echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
-          echo "${{ inputs.image-tag }}"
-          fi 
-
+          if [[ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]]; then echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV; elif [[ ${{ github.event_name }} == workflow_dispatch ]]; then echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV; echo "${{ inputs.image-tag }}";fi 
+          
+          
+        
       - name: what is image tag
         run: echo "${{ env.IMAGE_TAG }}"      
+         if [[ ${{ steps.generate_number.outputs.random_number }} == 0 ]]; then exit 0; else exit 1; fi
