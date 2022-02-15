@@ -1,0 +1,27 @@
+name: tagging-stratagy 
+
+on: 
+  workflow_dispatch:
+    inputs:
+      choice_of_tag:
+        description: 'enter ur choice'     
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - i just want to tag the master branch
+        - i want merge branch to master & add tag
+      image-tag:
+        description: 'enter image tag'     
+        required: true
+        default: 'v'
+
+
+
+jobs:
+ tagging-stratagy :
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2        
