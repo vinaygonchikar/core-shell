@@ -10,10 +10,8 @@ on:
         required: true
         default: 'v2.0.1'
   push:
-    branches:
-      - master
     tags:        
-      - v*
+      - v*.*.*
  
 jobs:
  Build-Push-To-GCR:
@@ -71,16 +69,15 @@ jobs:
       #     echo ${{ github.workspace }}
         
 
-      - name: storing 
+      - name: 
         shell: "bash"
         run: |-
           if [[ ${{ github.event_name }} == workflow_dispatch ]]; then echo "IMAGE_TAG=${{ github.event.inputs.image-tag }}" >> $GITHUB_ENV; fi
           if [[ ${{ github.ref_type }} == tag ]]; then echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV; fi
 
-      - name: Display the image tag
+      - name: Storing image tag name into GitHub variables
         run: |
           echo "TAG_NAME=$(echo "${{ env.IMAGE_TAG }}" | cut -d'v' -f2 | cut -d'V' -f2)" >> $GITHUB_ENV
-          echo "${{ env.TAG_NAME }}"
         
-      # - name: Display the image tag
-      #   run: echo "${{ env.TAG_NAME }}"
+      - name: Display the image tag
+        run: echo "${{ env.TAG_NAME }}"
