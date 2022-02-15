@@ -25,9 +25,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
- 
-# install java in VM
-      
       - name: Set up JDK 8
         uses: actions/setup-java@v2
         with:
@@ -84,5 +81,5 @@ jobs:
           echo ${{ inputs.image-tag }}
           fi 
 
-       - name: what is image tag
-        run: echo echo "${{ env.IMAGE_TAG }}"       
+      - name: what is image tag
+        run: echo "${{ env.IMAGE_TAG }}"      
