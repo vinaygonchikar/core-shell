@@ -58,7 +58,7 @@ jobs:
           echo ${{ github.ref }}
           echo ${{ github.ref_name }}
           echo ${{ github.ref_protected }}
-          echo ${{ github.ref_type }}
+          echo ${{ github.ref_type }}  #####
           echo ${{ github.path	 }}
           echo ${{ github.repository }}
           echo ${{ github.repository_owner }}
@@ -73,3 +73,13 @@ jobs:
           echo ${{ github.workflow }}
           echo ${{ github.workspace }}
         
+      - name: getting tag name
+        run: |
+          if [ ${{ github.event_name }} == push ]  && [ ${{ github.ref_type }} == tag ]
+          then
+          echo "IMAGE_TAG=${{ github.ref_name }}" >> $GITHUB_ENV 
+          echo ${{ github.ref_name }}
+          else
+          echo "IMAGE_TAG=${{ inputs.image-tag }}" >> $GITHUB_ENV 
+          echo ${{ inputs.image-tag }}
+          fi
