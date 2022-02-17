@@ -14,5 +14,5 @@ jobs:
         run: echo "${{ github.api_url }}/repos/${{ github.repository }}/releases"
       - name: send release request
         run: |
-          curl -v -i -X POST -H "Content-Type:application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases -d '{"tag_name":"v19.1.1","name": "v19.1.1","generate_release_notes":"true"}'
+          curl -v -i -X POST -H "Content-Type:application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" ${{ github.api_url }}/repos/${{ github.repository }}/releases -d '{"tag_name":"v19.1.1","generate_release_notes":"true"}'
 
