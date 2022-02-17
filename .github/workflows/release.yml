@@ -1,0 +1,14 @@
+name: automatic-release 
+
+# manully trigger the job 
+
+on:
+  push:
+  
+jobs:
+ automatic-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: send release request
+        run: curl -v -i -X POST -H "Content-Type:application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/vinaygonchikar/sample-spring-microservices/releases -d '{"tag_name":"v20.1.5"}'
