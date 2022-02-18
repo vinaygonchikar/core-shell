@@ -5,10 +5,39 @@ Detailed description can be found here: [Part 1: Creating microservice using Spr
 details hi
 
 how are u
+ih(https://piotrminkowski.wordpress.com/2017/02/05/part-1-creating-microservice-using-spring-cloud-eureka-and-zuul/) 
+
+details hi
+
+how are u
+ih
+
 
 hi
 
 hi
+<<<<<<< HEAD
 hi
 
 hi
+=======
+
+
+hi
+
+hi
+
+
+hi
+
+hi
+
+hi
+
+hi
+
+
+
+
+
+>>>>>>> 766be078cbab9effd5e7a273f696611dab29c581
