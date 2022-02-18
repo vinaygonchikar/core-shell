@@ -19,8 +19,8 @@ on:
   
 jobs:
  Build-Push-To-GCR:
-    if: github.ref_name != 'master'
-    if: github.ref_type == 'branch'
+    if: |
+      github.ref_name != 'master' && github.ref_type == 'branch'
     runs-on: ubuntu-latest
 #Environment variables
     env:
