@@ -19,7 +19,8 @@ on:
   
 jobs:
  Build-Push-To-GCR:
-    #if: github.repository != 'octo-org/octo-repo-prod'
+    if: github.ref_name != 'master'
+    if: github.ref_type == 'branch'
     runs-on: ubuntu-latest
 #Environment variables
     env:
@@ -64,14 +65,13 @@ jobs:
 
       - name: Build with Maven
         run: |
-          echo ${{ github.actor }} 
           echo ${{ github.ref_name }}
           # echo "${{ github.run_id }}"
           # echo "{{ github.run_number }}"
           # echo "$GITHUB_RUN_NUMBER"echo "${{ github.server_url }}/${{ github.repository }}"
           # echo ${{ env.URL_GITACTION }}
           # echo ${GITHUB_REF##*/}}
-          
+
           # echo ${{ github.action_path }}
           # echo ${{ github.action_ref }}
           # echo ${{ github.action_repository	}}
