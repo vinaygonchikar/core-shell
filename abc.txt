@@ -1,0 +1,8 @@
+#!/bin/bash
+a=v1.1.1
+if [[ $a == v*.*.* ]]
+then
+echo "correct tagging format received  "
+else
+echo "wrong tagging format recived"
+fi
