@@ -3,15 +3,15 @@ name: prod-CI
 # manully trigger the job 
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     image-tag:
-  #       description: 'enter image tag'     
-  #       required: true
-  #       default: 'v2.0.1'
-  push:
-    # tags:        
-    #   - v*.*.*
+   workflow_dispatch:
+     inputs:
+       image-tag:
+         description: 'enter image tag'     
+         required: true
+         default: 'v2.0.1'
+   push:
+     tags:        
+       - '*'
  
 jobs:
  Build-Push-To-GCR:
