@@ -1,0 +1,33 @@
+name: Branch-create
+
+on:
+   workflow_dispatch:
+     branchname:
+       image-tag:
+         description: 'feature-(below entered text)-SNAPSHOT'     
+         required: true
+         default: 'warning'
+
+ 
+jobs:
+ Create-feature-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'      
+          
+      - name: Branch create
+        run: |
+          echo "your new branch name is feature-${{ github.event.inputs.branchname }}"
+          git branch feature-${{ github.event.inputs.branchname }}
+          git checkout feature-${{ github.event.inputs.branchname }}
+          mvn versions:set -DnewVersion=feature-${{ github.event.inputs.branchname }}-SNAPSHOT -DprocessAllModules -DgenerateBackupPoms=false
+          git commit -m "feature-${{ github.event.inputs.branchname }} created & upadted pom.xml file"
+          git push
+          
+          
