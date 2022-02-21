@@ -2,9 +2,9 @@ name: Branch-create
 
 on:
    workflow_dispatch:
-     branchname:
-       image-tag:
-         description: 'feature-(below entered text)-SNAPSHOT'     
+     inputs:
+       branchname:
+         description: 'your branch name will be feature-(below entered text)'     
          required: true
          default: 'warning'
 
