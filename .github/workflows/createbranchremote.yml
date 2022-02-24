@@ -1,0 +1,16 @@
+name: remote-Create-Branch-1
+on:
+  workflow_dispatch:
+    inputs:
+      branchname:
+        description: 'Branch name will be feature-(below entered text) '     
+        required: true
+        default: ''
+
+jobs:
+  create-branch:
+    uses: /vinaygonchikar/mavenproject-1/.github/workflows/reusable-workflow.yml@master
+    with:
+      branchname: ${{ github.event.inputs.branchname }}
+    secrets:
+      PASS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
