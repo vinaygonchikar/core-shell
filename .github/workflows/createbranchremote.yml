@@ -9,7 +9,7 @@ on:
 
 jobs:
   create-branch:
-    uses: /vinaygonchikar/mavenproject-1/.github/workflows/reusable-workflow.yml@master
+    uses: vinaygonchikar/mavenproject-1/.github/workflows/reusable-workflow.yml@master
     with:
       branchname: ${{ github.event.inputs.branchname }}
     secrets:
