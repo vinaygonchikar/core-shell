@@ -23,7 +23,7 @@ jobs:
         continue-on-error: true
         run: |-  
           gh pr create --title "Adding readme" --body "Testing pr from cli" --base master
-          echo "pullrequesttatus=$($?)" >> $GITHUB_ENV
+          echo "pullrequesttatus=$(echo $?)" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
