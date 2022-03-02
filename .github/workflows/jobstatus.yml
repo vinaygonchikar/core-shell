@@ -25,11 +25,13 @@ jobs:
           gh pr create --title "Adding readme" --body "Testing pr from cli" --base master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name:store status code 
-        run: |-
+          
+      - name: store pull request status
+        run: |         
           echo "pullrequesttatus=$(echo $?)" >> $GITHUB_ENV
- 
+
       - name: Dispay pull request status code
         run: |         
           echo "${{ env.pullrequesttatus }}" 
+
+
