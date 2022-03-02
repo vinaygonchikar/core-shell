@@ -1,0 +1,32 @@
+name: jobstatus
+on:
+  workflow_dispatch:
+    inputs:
+      Bumpversion:
+        description: 'In above drop down slect featue branch u want to merge to master & below select which semantic version to bump'
+        required: true
+        default: 'warning' 
+        type: choice
+        options:
+        - Patch
+        - Minor
+        - Major
+jobs:
+  jobstatus:
+    if: |
+      github.ref_name != 'master' && github.ref_type == 'branch' && github.event_name == 'workflow_dispatch' 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: create a pull request
+        continue-on-error: true
+        run: |-  
+          gh pr create --title "Adding readme" --body "Testing pr from cli" --base master
+          echo "pullrequesttatus=$($?)" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Dispay the last tag
+        run: |         
+          echo "${{ env.pullrequesttatus }}" 
