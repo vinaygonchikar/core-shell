@@ -11,7 +11,7 @@ jobs:
       - name: Set the GITHUB_ENVvalue
         run: |
           echo "${{github.repository}}"
-          echo "echo "IMAGE_NAME=$(echo "${{github.repository}}" | cut -c 6-)" >> $GITHUB_ENV 
+          echo "IMAGE_NAME=$(echo "${{github.repository}}" | cut -d'/' -f2 | cut -c 6-)" >> $GITHUB_ENV 
           
       - name: Display GitHub_Env values
         run: |
