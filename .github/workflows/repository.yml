@@ -1,0 +1,18 @@
+name: Pre-prod-CI 
+on:
+  push:
+    branches: 
+      - 'master'
+jobs:
+ Build-Push-To-GCR:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set the GITHUB_ENVvalue
+        run: |
+          echo "${{github.repository}}"
+          echo "echo "IMAGE_NAME=$(echo "${{github.repository}}" | cut -c 6-)" >> $GITHUB_ENV 
+          
+      - name: Display GitHub_Env values
+        run: |
+          echo "The hostname is ${{ env.IMAGE_NAME }}"
